@@ -38,7 +38,8 @@ if(!empty($_POST)){
     <h2>Hieronder komen reacties</h2>
     <form action="" methode="POST"></form>
     <label>Name:
-        <input type="text"  name= 'Name' required /></label>
+        <input type="text"  name="Name" required />
+    </label>
     <label>Comment:
         <textarea name= "Comment" required></textarea></label><br />
     <input type="submit" name="Submit" value= "Submit "/>
@@ -48,19 +49,25 @@ if(!empty($_POST)){
 </html>
 <?php 
 if (isset($_POST["Submit"])){
-    print" <h2> Your comment has been submitted!</h2>"
+    print "<h2>Your comment has been submitted!</h2>";
+
+
     $Name = $_POST["Name"];
-    $Comment=$_POST["Comment"];
+    $Comment = $_POST["Comment"];
+
+
     //old comments
-    $Old= fopen("comments.txt", "r+t");
+    $Old = fopen("comments.txt", "r+t");
     $Old_Comments = fread($Old, 1024);
     //new comments 
     $Write = fopen("comments.txt", "w+");
-    $string=
-    "<div class='comments'<span>".$Name."</span><br/>
-    <span>".date('y/n/d')."|".date("h:i A")."</span><br/>
-    <span>".$Comment."</span></div>/n". $Old_Comments;
-fwrite($Write,$string);
+
+
+    $String=
+    "<div class='comment'><span>".$Name."</span><br />
+    <span>".date('y/n/d')." | ".date("h:i A")."</span><br />
+    <span>".$Comment."</span></div>\n".$Old_Comments;
+fwrite($Write, $String);
 fclose($Write);
 fclose($Old);
 }
