@@ -44,7 +44,6 @@ if(!empty($_POST)){
     <div>
         <input type="text"  name="Comment" required /><br />
     </div>
-    
     <div>
         <input type="email"  name="Email" required />
     </div>
@@ -81,9 +80,9 @@ if (isset($_POST["Submit"])){
 
 
     $String=
-    "<div class='comment'><span>".$Name."</span><br />"."
+    "<div class='comment'><span>".$Name."</span><br />"."<span>".$Comment."</span><br />"."
     <span>".date('y/n/d')." | ".date("h:i A")."</span><br />
-    <p>".$Comment."</span></div>\n".$Old_Comments;
+    </div>\n".$Old_Comments;
 fwrite($Write, $String);
 fclose($Write);
 fclose($Old);
