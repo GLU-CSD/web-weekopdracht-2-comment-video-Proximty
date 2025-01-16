@@ -5,28 +5,29 @@ include("reactions.php");
 $getReactions = Reactions::getReactions();
 //uncomment de volgende regel om te kijken hoe de array van je reactions eruit ziet
 // echo "<pre>".var_dump($getReactions)."</pre>";
-
-if(!empty($_POST)){
-
-    // //dit is een voorbeeld array.  Deze waardes moeten erin staan.
-    // $postArray = [
-    //     'name' => "Ieniminie",
-    //     'email' => "ieniminie@sesamstraat.nl",
-    //     'message' => "Geweldig dit"
-    // ];
-
-    // $setReaction = Reactions::setReaction($postArray);
-
-    // if(isset($setReaction['error']) && $setReaction['error'] != ''){
-    //     prettyDump($setReaction['error']);
-    // }
-
-    // if (isset($_POST['Comment'])){
-        
-    //     exit();
-    // }
-
+if (isset($setReaction['error']) && !empty($setReaction['error'])) {
+    foreach ($setReaction['error'] as $error) {
+        echo "<p style='color: red;'>$error</p>";
+    }
 }
+if (isset($setReaction['succes'])) {
+    echo "<p style='color: green;'>{$setReaction['succes']}</p>";
+    header("Location: " . $_SERVER['PHP_SELF']);
+    exit(); 
+}
+// if(!empty($_POST)){
+//  echo "<pre>";
+//  print_r($_POST);
+//  echo "</pre>";
+//     //dit is een voorbeeld array.  Deze waardes moeten erin staan.
+//     // $postArray = [
+//     //     'name' => $_POST['Name'],
+//     //     'email' => $_POST['Email'],
+//     //     'message' =>$_POST['Comment']
+//     // ];
+  
+
+// }
 
 
 ?>
@@ -59,30 +60,29 @@ if(!empty($_POST)){
 </body>
 </html>
 <?php 
+if(!empty($_POST)){
+    echo "<pre>";
+    print_r($_POST);
+    echo "</pre>";
+       //dit is een voorbeeld array.  Deze waardes moeten erin staan.
+       // $postArray = [
+       //     'name' => $_POST['Name'],
+       //     'email' => $_POST['Email'],
+       //     'message' =>$_POST['Comment']
+       // ];
+     
+   
+   }
 
 if (isset($_POST["Submit"])){
     $sql = 
     "INSERT INTO `reactions` (name, email,message)
       VALUES ('".$_POST['Name']."','".$_POST['Email']."','".$_POST['Comment']."')";
     $con->query($sql); 
-    // prettyDump($_POST);
-    
- $getReactions = Reactions::getReactions($_POST);
- if (isset($setReaction['error']) && !empty($setReaction['error'])) {
-    foreach ($setReaction['error'] as $error) {
-        echo "<p style='color: red;'>$error</p>";
-    }
-}
-if (isset($setReaction['succes'])) {
-    echo "<p style='color: green;'>{$setReaction['succes']}</p>";
-    header("Location: " . $_SERVER['PHP_SELF']);
-    exit(); 
-}
 
+    print "<h2>Your comment has been submitted!</h2>";
    
 }
-
-echo"<h1>Comments:</h1><chr>";
 
 
 
